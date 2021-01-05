@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      onGenerateRoute: (RouteSettings settings){
+      onGenerateRoute: (RouteSettings settings) {
         print('11111111111');
         return MaterialPageRoute(builder: (context) {
           String routeName = settings.name;
@@ -23,17 +23,18 @@ class MyApp extends StatelessWidget {
           return NoDataRoute();
         });
       },
-      routes: { // 注册路由表
+      routes: {
+        // 注册路由表
         "/": (context) => MyHomePage(title: 'Home Page'),
         "new_page": (context) => NewRoute(),
-      },  
+      },
       // home: MyHomePage(title: 'Flutter Demo Home Page'), // 路由注册表替换次功能
     );
   }
 }
 
 /// 有状态的类 包含
-/// StatefulWidget 
+/// StatefulWidget
 /// State 可以获取 || 更新 有状态的类中定义的值
 
 class MyHomePage extends StatefulWidget {
@@ -45,8 +46,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  @override
+  void initState() {
+    super.initState();
 
+    ///初始化，这个函数在生命周期中只调用一次
+    print('初始化钩子');
+  }
+
+  @override
+  void didChangeDependencies(){
+    super.didChangeDependencies();
+    print('initState---之后执行，并此时可以获取其他 State');
+  }
+
+  @override
+  void dispose() {
+    /// 销毁
+    super.dispose();
+    print('部件销毁');
+  }
+
+  int _counter = 0;
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -61,10 +82,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center( // Center 可以将其子组件树对齐到屏幕中心
+      body: Center(
+        // Center 可以将其子组件树对齐到屏幕中心
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[ // 组件的集合
+          children: <Widget>[
+            // 组件的集合
             Text(
               'You have pushed the button this many times:',
             ),
@@ -74,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             RaisedButton(
               child: Text('进入子界面'),
-              onPressed: (){
+              onPressed: () {
                 /// Navigator.push(BuildContext context, Route route)
                 // Navigator.push( context,
                 //   MaterialPageRoute(builder: (context){
@@ -83,10 +106,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 // );
 
                 /// 路由注册表调用
-                Navigator.pushNamed(context, 'new_page', arguments: '我是父界面传递过来的值');
-
+                Navigator.pushNamed(context, 'new_page',
+                    arguments: '我是父界面传递过来的值');
               },
             ),
+            StatelessWidgetDemo(),
           ],
         ),
       ),
@@ -122,16 +146,23 @@ class NewRoute extends StatelessWidget {
   }
 }
 
+/// 无状态组件
+class StatelessWidgetDemo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text('这是无状态组件');
+  }
+}
+
 class NoDataRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("404"),
-      ),
-      body: Center(
-        child: Text('404'),
-      )
-    );
+        appBar: AppBar(
+          title: Text("404"),
+        ),
+        body: Center(
+          child: Text('404'),
+        ));
   }
 }
