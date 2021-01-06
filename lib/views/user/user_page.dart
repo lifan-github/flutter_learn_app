@@ -7,6 +7,18 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
   @override
+  void initState(){
+    super.initState();
+    print('我的界面----------------');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print('我的界面initState---之后执行，并此时可以获取其他 State');
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

@@ -5,9 +5,22 @@ import 'package:flutter_learn_app/views/home/details.dart';
 import 'package:flutter_learn_app/views/login/login.dart';
 import 'package:flutter_learn_app/views/noRoute/no_route.dart';
 import 'package:flutter_learn_app/views/user/details.dart';
+import 'package:provider/provider.dart';
+
+import 'model/home_model.dart';
 
 void main() {
-  runApp(MyApp());
+  final counter = CounterModel();
+  final textSize = 48;
+  runApp(
+    MultiProvider( // model的集合
+      providers: [
+        ChangeNotifierProvider.value(value: counter),
+        Provider.value(value: textSize),
+      ],
+      child: MyApp(),
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
