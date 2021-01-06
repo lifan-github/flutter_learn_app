@@ -1,6 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_learn_app/http/api_config.dart';
+import 'package:flutter_learn_app/http/home_action.dart';
 import 'package:flutter_learn_app/model/home_model.dart';
 import 'package:provider/provider.dart';
 
@@ -22,22 +21,19 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     print('首页初始化---------111111-------');
     /// 获取测试数据
-    getHttp();
-  }
-
-  void getHttp() async {
-    try {
-      Response response = await Dio().get(ApiConfig.GET_USER_LIST);
-      print('------------ ${response.data}');
-    } catch (e) {
-      print(e);
-    }
+    getUserList().then((res){
+      print('res----$res');
+    }).whenComplete((){
+      print('请求完成了');
+    }).catchError((err){
+      print('err----$err');
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final _counter = Provider.of<CounterModel>(context);
-    print('_counter---------${_counter.value}');
+    print('_counter---home------${_counter.value}');
     return Scaffold(
       body: Consumer<CounterModel>(
         builder: (context, CounterModel counter, child) => Center(

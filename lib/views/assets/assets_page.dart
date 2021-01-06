@@ -13,12 +13,6 @@ class _AssetsPageState extends State<AssetsPage> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    print('资产界面initState---之后执行，并此时可以获取其他 State');
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
