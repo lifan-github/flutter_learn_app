@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_learn_app/views/assets_page.dart';
-import 'package:flutter_learn_app/views/home_page.dart';
-import 'package:flutter_learn_app/views/user_page.dart';
+import 'package:flutter_learn_app/views/assets/assets_page.dart';
+import 'package:flutter_learn_app/views/home/home_page.dart';
+import 'package:flutter_learn_app/views/user/user_page.dart';
 
 class Tabnavigator extends StatefulWidget {
   @override
@@ -9,17 +9,25 @@ class Tabnavigator extends StatefulWidget {
 }
 
 class _TabnavigatorState extends State<Tabnavigator> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   final PageController _controller = PageController(initialPage: 0, keepPage: true);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(controller: _controller, children: <Widget>[
-        HomePage(),
-        AssetsPage(),
-        UserPage(),
-      ]),
+      body: PageView(
+        controller: _controller,
+        onPageChanged: (int index){
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        children: <Widget>[
+          HomePage(),
+          AssetsPage(),
+          UserPage(),
+        ]
+      ),
       bottomNavigationBar: BottomNavigationBar(
         // 底部导航
         items: <BottomNavigationBarItem>[
