@@ -11,6 +11,7 @@ class _HomePageState extends State<HomePage> {
   var item2 = const {'labelText': '父部件、子部件之间传值及回调', 'route': '222'};
   var item3 = const {'labelText': '跨部件共享数据', 'route': '333'};
   var item4 = const {'labelText': '本地数据储存', 'route': '444'};
+  var item5 = const {'labelText': 'ListView列表', 'route': 'listview_page'};
 
   @override
   void initState() {
@@ -32,6 +33,7 @@ class _HomePageState extends State<HomePage> {
                 _ListItem(item2),
                 _ListItem(item3),
                 _ListItem(item4),
+                _ListItem(item5),
               ],
             ),
           )

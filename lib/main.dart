@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_learn_app/routes/tab_navigator.dart';
 import 'package:flutter_learn_app/views/assets/details.dart';
 import 'package:flutter_learn_app/views/home/details.dart';
+import 'package:flutter_learn_app/views/home/listview.dart';
 import 'package:flutter_learn_app/views/home/network.dart';
 import 'package:flutter_learn_app/views/login/login.dart';
 import 'package:flutter_learn_app/views/noRoute/no_route.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
           "/": (context) => Tabnavigator(),
           "home_details": (context) => HomeDetails(),
           "network_page": (context) => NetworkPage(),
+          "listview_page": (context) => ListViewPage(),
           "assets_details": (context) => AssetsDetails(),
           "user_details": (context) => UserDetails(),
         };
