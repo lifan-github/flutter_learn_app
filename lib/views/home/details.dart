@@ -13,17 +13,16 @@ class HomeDetails extends StatelessWidget {
       ),
       body: Container(
         child: Center(
-          child: Column(
-            children: <Widget>[
-              Text('详情页'),
-              Text('value:${_counter.value}'),
-              RaisedButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text('返回值上一页'),
-              )
-            ],
-          )
-        ),
+            child: Column(
+          children: <Widget>[
+            Text('详情页'),
+            Text('value:${_counter.value}'),
+            RaisedButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('返回值上一页'),
+            )
+          ],
+        )),
       ),
     );
   }
