@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_learn_app/routes/tab_navigator.dart';
 import 'package:flutter_learn_app/views/assets/details.dart';
 import 'package:flutter_learn_app/views/home/details.dart';
+import 'package:flutter_learn_app/views/home/gridView.dart';
 import 'package:flutter_learn_app/views/home/listview.dart';
 import 'package:flutter_learn_app/views/home/network.dart';
 import 'package:flutter_learn_app/views/login/login.dart';
@@ -43,8 +44,9 @@ class MyApp extends StatelessWidget {
           "home_details": (context) => HomeDetails(),
           "network_page": (context) => NetworkPage(),
           "listview_page": (context) => ListViewPage(),
+          "gridview_page": (context) => GridViewPage(),
           "assets_details": (context) => AssetsDetails(),
-          "user_details": (context) => UserDetails(),
+          "user_details": (context) => UserDetails()
         };
         if(!isLogin){
           return MaterialPageRoute(builder: (context) => LoginRoute());
