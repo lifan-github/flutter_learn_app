@@ -10,9 +10,10 @@ class _HomePageState extends State<HomePage> {
   var item1 = const {'labelText': '网络请求', 'route': 'network_page'};
   var item2 = const {'labelText': '父部件、子部件之间传值及回调', 'route': '222'};
   var item3 = const {'labelText': '跨部件共享数据', 'route': '333'};
-  var item4 = const {'labelText': '本地数据储存', 'route': '444'};
+  var item4 = const {'labelText': '本地缓存', 'route': 'local_cache_page'};
   var item5 = const {'labelText': 'ListView列表', 'route': 'listview_page'};
   var item6 = const {'labelText': 'GridView列表', 'route': 'gridview_page'};
+  var item7 = const {'labelText': 'ListView加载更多', 'route': 'listview_load_more_page'};
 
   @override
   void initState() {
@@ -36,6 +37,7 @@ class _HomePageState extends State<HomePage> {
                 _ListItem(item4),
                 _ListItem(item5),
                 _ListItem(item6),
+                _ListItem(item7),
               ],
             ),
           )

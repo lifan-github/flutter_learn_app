@@ -4,6 +4,8 @@ import 'package:flutter_learn_app/views/assets/details.dart';
 import 'package:flutter_learn_app/views/home/details.dart';
 import 'package:flutter_learn_app/views/home/gridView.dart';
 import 'package:flutter_learn_app/views/home/listview.dart';
+import 'package:flutter_learn_app/views/home/listview_load_more_page.dart';
+import 'package:flutter_learn_app/views/home/local_cache_page.dart';
 import 'package:flutter_learn_app/views/home/network.dart';
 import 'package:flutter_learn_app/views/login/login.dart';
 import 'package:flutter_learn_app/views/noRoute/no_route.dart';
@@ -46,7 +48,9 @@ class MyApp extends StatelessWidget {
           "listview_page": (context) => ListViewPage(),
           "gridview_page": (context) => GridViewPage(),
           "assets_details": (context) => AssetsDetails(),
-          "user_details": (context) => UserDetails()
+          "user_details": (context) => UserDetails(),
+          "local_cache_page": (context) => LocalCachePage(),
+          "listview_load_more_page": (context) => ListViewLoadMorePage(),
         };
         if(!isLogin){
           return MaterialPageRoute(builder: (context) => LoginRoute());
