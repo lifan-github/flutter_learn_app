@@ -3,6 +3,7 @@ import 'package:flutter_learn_app/routes/tab_navigator.dart';
 import 'package:flutter_learn_app/views/assets/details.dart';
 import 'package:flutter_learn_app/views/home/details.dart';
 import 'package:flutter_learn_app/views/home/gridView.dart';
+import 'package:flutter_learn_app/views/home/listTile.dart';
 import 'package:flutter_learn_app/views/home/listview.dart';
 import 'package:flutter_learn_app/views/home/listview_load_more_page.dart';
 import 'package:flutter_learn_app/views/home/local_cache_page.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
           "user_details": (context) => UserDetails(),
           "local_cache_page": (context) => LocalCachePage(),
           "listview_load_more_page": (context) => ListViewLoadMorePage(),
+          "listtile_page": (context) => ListTilePage(),
         };
         if(!isLogin){
           return MaterialPageRoute(builder: (context) => LoginRoute());
