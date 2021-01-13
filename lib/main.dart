@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learn_app/routes/tab_navigator.dart';
 import 'package:flutter_learn_app/views/assets/details.dart';
+import 'package:flutter_learn_app/views/home/child_page.dart';
 import 'package:flutter_learn_app/views/home/details.dart';
+import 'package:flutter_learn_app/views/home/father_child_page.dart';
 import 'package:flutter_learn_app/views/home/flutter_localizations_page.dart';
 import 'package:flutter_learn_app/views/home/gridView.dart';
 import 'package:flutter_learn_app/views/home/iconfont_page.dart';
@@ -81,6 +83,8 @@ class MyApp extends StatelessWidget {
           "listtile_page": (context) => ListTilePage(),
           "iconfont_page": (context) => IconFontPage(),
           "loaclizations_page": (context) => LocalizationPage(),
+          "father_child_page": (context) => FatherChildPage(),
+          "child_page": (context) => ChildPage(),
         };
         if(!isLogin){
           return MaterialPageRoute(builder: (context) => LoginRoute());

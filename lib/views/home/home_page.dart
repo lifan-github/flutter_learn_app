@@ -8,7 +8,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // 初始化值 父部件传递给子部件
   var item1 = const {'labelText': '网络请求', 'route': 'network_page'};
-  var item2 = const {'labelText': '父部件、子部件之间传值及回调', 'route': '222'};
+  var item2 = const {'labelText': '父部件、子部件之间传值及回调', 'route': 'father_child_page'};
   var item3 = const {'labelText': '跨部件共享数据', 'route': '333'};
   var item4 = const {'labelText': '本地缓存', 'route': 'local_cache_page'};
   var item5 = const {'labelText': 'ListView列表', 'route': 'listview_page'};
