@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+
 /// 异步操作
 /// Dart 使用 Future 对象来表示异步操作的结果
 /// 可以用 async 和 await 关键字或 Future 类的相关 API 来配合使用 future
@@ -17,7 +18,11 @@ class ListViewLoadMorePage extends StatefulWidget {
 
 class _ListViewLoadMorePageState extends State<ListViewLoadMorePage> {
   bool isLoading = false;
-  List<int> items = List.generate(20, (i) => i); // 初始化数据
+
+  /// 获取列表信息 {count: 总数，curr_page：当前页码，limit_num：每页条数，items：[] 数组对象}
+  UserListModel listInfo;
+  List listInfoItems = [];
+
   ScrollController _scrollController = new ScrollController(); // new监听
 
   @override
@@ -25,22 +30,39 @@ class _ListViewLoadMorePageState extends State<ListViewLoadMorePage> {
     super.initState();
     // 1、默认加载数据
     _getListData();
-    
+
     // 2、监听加载数据
     _scrollController.addListener(() {
       // 滑动至最大距离
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         print("loadMore------>>>>>加载更多");
-        _getMoreData();
+        _getListData();
       }
     });
   }
 
   /// 获取数据列表
   Future _getListData() async {
-    Response response = await Dio().get("http://rap2api.taobao.org/app/mock/6511/list/get");
-    print('response------------$response');
+    if(!isLoading){
+      setState(() {
+        isLoading = true;
+      });
+      Response response =
+        await Dio().get("http://rap2api.taobao.org/app/mock/6511/list/get");
+    print(response.data is Map); // 类型检测
+    listInfo = UserListModel.fromJson(response.data);
+    print('listInfo----$listInfo'); // 打印出 Instance of 'UserListModel' 说明成功
+    print('总条数----${listInfo.count}');
+    print('当前页码----${listInfo.currPage}');
+    print('一页条数----${listInfo.limitNum}');
+    print('items------->>${listInfo.items[0].name}');
+    setState(() {
+      // 合并数据 && isLoading = false;
+      listInfoItems = [...listInfoItems, ...listInfo.items];
+      isLoading = false;
+    });
+    }
   }
 
   // 解除监听
@@ -55,49 +77,37 @@ class _ListViewLoadMorePageState extends State<ListViewLoadMorePage> {
     await Future.delayed(Duration(seconds: 2), () {
       print('下拉刷新---清空所有重新渲染20条数据');
       setState(() {
-        items.clear();
-        items = List.generate(20, (i) => i);
+        listInfoItems.clear();
+        _getListData();
         return null;
       });
     });
   }
 
-  // 上滑加载更多（异步）
-  Future _getMoreData() async {
-    if (!isLoading) {
-      setState(() {
-        isLoading = true;
-      });
-      List<int> newEntries =
-          await mokeHttpRequest(items.length, items.length + 10);
-      setState(() {
-        items.addAll(newEntries);
-        isLoading = false;
-      });
-    }
-  }
-
-  Future<List<int>> mokeHttpRequest(int from, int to) async {
-    return Future.delayed(Duration(seconds: 2), () {
-      return List.generate(to - from, (i) => i + from);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('加载更多'),
+          title: Text('下拉 | 上滑加载'),
         ),
         body: new RefreshIndicator(
           child: ListView.builder(
-            itemCount: items.length + 1,
+            itemCount: listInfoItems.length + 1,
             itemBuilder: (context, index) {
-              if (index == items.length) {
+              if (index == listInfoItems.length) {
                 return _buildProgressIndicator();
               } else {
-                return ListTile(
-                  title: Text("Index-->$index"),
+                return Card(
+                  child: ListTile(
+                    title: Text("${listInfoItems[index].name}"), // 一级标题
+                    subtitle: Text("${listInfoItems[index].tel}"), // 二级标题
+                    trailing: Icon(Icons.arrow_forward_ios), // 右侧图标
+                    contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
+                    enabled: true,
+                    onTap: () => print("$index被点击了"),
+                    onLongPress: () => print("$index被长按了"),
+                  ),
                 );
               }
             },
@@ -107,25 +117,19 @@ class _ListViewLoadMorePageState extends State<ListViewLoadMorePage> {
         ));
   }
 
-  Widget _buildLoadText() {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Center(
-          child: Text("加载中……"),
-        ),
-      ),
-      color: Colors.white70,
-    );
-  }
-
   Widget _buildProgressIndicator() {
-    return new Padding(
+    return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: new Center(
-        child: new Opacity(
+      child: Center(
+        child: Opacity(
           opacity: isLoading ? 1.0 : 0.0,
-          child: new CircularProgressIndicator(),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("加载中……"),
+              CircularProgressIndicator()
+            ],
+          ),
         ),
       ),
     );
@@ -133,7 +137,7 @@ class _ListViewLoadMorePageState extends State<ListViewLoadMorePage> {
 }
 
 
-
+/// model
 class UserListModel {
   int count;
   int currPage;
@@ -170,13 +174,15 @@ class Items {
   int age;
   String name;
   int id;
+  String tel;
 
-  Items({this.age, this.name, this.id});
+  Items({this.age, this.name, this.id, this.tel});
 
   Items.fromJson(Map<String, dynamic> json) {
     age = json['age'];
     name = json['name'];
     id = json['id'];
+    tel = json['tel'];
   }
 
   Map<String, dynamic> toJson() {
@@ -184,6 +190,7 @@ class Items {
     data['age'] = this.age;
     data['name'] = this.name;
     data['id'] = this.id;
+    data['tel'] = this.tel;
     return data;
   }
 }
