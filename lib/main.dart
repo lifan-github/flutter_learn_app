@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_learn_app/routes/tab_navigator.dart';
 import 'package:flutter_learn_app/views/assets/details.dart';
 import 'package:flutter_learn_app/views/home/details.dart';
+import 'package:flutter_learn_app/views/home/flutter_localizations_page.dart';
 import 'package:flutter_learn_app/views/home/gridView.dart';
 import 'package:flutter_learn_app/views/home/iconfont_page.dart';
 import 'package:flutter_learn_app/views/home/listTile.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_learn_app/views/home/network.dart';
 import 'package:flutter_learn_app/views/login/login.dart';
 import 'package:flutter_learn_app/views/noRoute/no_route.dart';
 import 'package:flutter_learn_app/views/user/details.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import 'model/home_model.dart';
@@ -33,7 +35,30 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // 默认语言监测 注意监测null
+    // Locale myLocale = Localizations.localeOf(context); // null || en_US
+    // print('--------------->$myLocale');
+    // String lang = 'en';
+    // String countries = 'US';
+    // if(myLocale != null){
+    //   lang = myLocale.toString().split("_")[0];
+    //   countries = myLocale.toString().split("_")[1];
+    // } else {
+    //   // 不存在默认取系统语言
+    //   lang = 'zh';
+    //   countries = 'CN';
+    // }
+
     return MaterialApp(
+      localizationsDelegates: [  // 国际化语言配置
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en', 'US'), // 美国英语
+        const Locale('zh', 'CN'), // 中文简体
+      ],
+      // locale: Locale(lang, countries),
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -55,6 +80,7 @@ class MyApp extends StatelessWidget {
           "listview_load_more_page": (context) => ListViewLoadMorePage(),
           "listtile_page": (context) => ListTilePage(),
           "iconfont_page": (context) => IconFontPage(),
+          "loaclizations_page": (context) => LocalizationPage(),
         };
         if(!isLogin){
           return MaterialPageRoute(builder: (context) => LoginRoute());

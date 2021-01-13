@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
   var item7 = const {'labelText': 'ListView加载更多', 'route': 'listview_load_more_page'};
   var item8 = const {'labelText': 'ListTile列表块', 'route': 'listtile_page'};
   var item9 = const {'labelText': 'IconFont文字图标使用', 'route': 'iconfont_page'};
+  var item10 = const {'labelText': '国际化语言', 'route': 'loaclizations_page'};
 
   @override
   void initState() {
@@ -42,6 +43,7 @@ class _HomePageState extends State<HomePage> {
                 _ListItem(item7),
                 _ListItem(item8),
                 _ListItem(item9),
+                _ListItem(item10),
               ],
             ),
           )

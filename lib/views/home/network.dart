@@ -13,7 +13,7 @@ class _NetworkPageState extends State<NetworkPage> {
     try {
       Response response =
           await Dio().get("http://rap2api.taobao.org/app/mock/6511/user/info");
-          print('response-->>$response');
+      print('response-->>$response');
       user = UserInfoModel.fromJson(response.data);
       print(user.name);
       setState(() {});
@@ -33,9 +33,13 @@ class _NetworkPageState extends State<NetworkPage> {
           children: [
             RaisedButton(
               onPressed: () => getUserInfo(),
-              child: Text('点击我获取姓名'),
+              child: Text('点击我获取用户信息'),
             ),
-            Text("姓名:" + (user != null &&user.name!=null ? user.name : "暂无")),
+            Text(
+                "姓名: " + (user != null && user.name != null ? user.name : "暂无")),
+            (user != null && user.age != null) ? Text('年龄：${user.age}') : Text('年龄：暂无'),
+            Text(
+                "住址: " + (user != null && user.address != null ? user.address : "暂无")),
           ],
         ),
       ),
