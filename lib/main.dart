@@ -35,6 +35,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     // 默认语言监测 注意监测null
