@@ -11,11 +11,13 @@ import 'package:flutter_learn_app/views/home/listview.dart';
 import 'package:flutter_learn_app/views/home/listview_load_more_page.dart';
 import 'package:flutter_learn_app/views/home/local_cache_page.dart';
 import 'package:flutter_learn_app/views/home/network.dart';
+import 'package:flutter_learn_app/views/login/login.dart';
 import 'package:flutter_learn_app/views/user/details.dart';
 
 class RoutesConfig {
   static final routes = {
     "/": (context) => Tabnavigator(),
+    "login_page": (context) => LoginRoute(),
     "home_details": (context) => HomeDetails(),
     "network_page": (context) => NetworkPage(),
     "listview_page": (context) => ListViewPage(),

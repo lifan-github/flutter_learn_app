@@ -31,17 +31,17 @@ class _TabnavigatorState extends State<Tabnavigator> {
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           // ignore: deprecated_member_use
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
+          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('首页')),
           BottomNavigationBarItem(
               // ignore: deprecated_member_use
               icon: Icon(Icons.business),
               // ignore: deprecated_member_use
-              title: Text('Business')),
+              title: Text('资产')),
           BottomNavigationBarItem(
               // ignore: deprecated_member_use
               icon: Icon(Icons.school),
               // ignore: deprecated_member_use
-              title: Text('School')),
+              title: Text('我的')),
         ],
         currentIndex: _selectedIndex,
         fixedColor: Colors.blue,
