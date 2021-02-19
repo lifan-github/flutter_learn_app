@@ -1,67 +1,39 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_learn_app/routes/routes.dart';
-import 'package:flutter_learn_app/views/login/login.dart';
-import 'package:flutter_learn_app/views/noRoute/no_route.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'model/home_model.dart';
+import 'routes/application.dart';
+import 'routes/routes.dart';
 
 void main() {
-  final counter = CounterModel();
-  final textSize = 48;
-  print('start----app');
-  runApp(MultiProvider(
-    // model的集合
-    providers: [
-      ChangeNotifierProvider.value(value: counter),
-      Provider.value(value: textSize),
-    ],
-    child: MyApp(),
-  ));
+  final router = FluroRouter();
+  Routes.configureRoutes(router);
+  Application.router = router;
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  Future _incrementCounter() async {
-    // 登录状态
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool loginStatus = (prefs.getBool('LOGIN_STATUS') ?? false); // 登录身份标识为null时，即为未登录false
-    print('loginStatus---$loginStatus');
-    return loginStatus;
-  }
-
   @override
   Widget build(BuildContext context) {
-    print('app----------');
     return MaterialApp(
-      title: 'Flutter App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+      onGenerateRoute: Application.router.generator,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Learn Flutter'),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(title: Text('首页'),icon: Icon(Icons.home)),
+            BottomNavigationBarItem(title: Text('书籍'),icon: Icon(Icons.book)),
+            BottomNavigationBarItem(title: Text('我的'),icon: Icon(Icons.perm_identity)),
+          ],
+          onTap: (index){
+            print('tab---$index');
+          },
+          fixedColor: Colors.red,
+        ),
+        body: Center(
+          child: Text('一枚有态度的程序员'),
+        ),
       ),
-      initialRoute: '/', // 默认路由初始页
-      onGenerateRoute: (setting) {
-        print('每次进入新页面的路由钩子---$setting');
-        final routes = RoutesConfig.routes; // 路由配置文件
-        _incrementCounter().then((res) {
-          print('1111---$res');
-          if (!res) { // 未登录界面
-            print('未登录');
-            return MaterialPageRoute(builder: (context) => LoginRoute());
-          } else {
-            print('已登录');
-            return MaterialPageRoute(builder: routes[setting.name], settings: setting);
-          }
-        }).catchError((err) { // 错误处理界面
-          print('4444');
-          return MaterialPageRoute(builder: (context) => LoginRoute());
-        });
-        return MaterialPageRoute(
-            builder: routes[setting.name], settings: setting);
-      },
-      onUnknownRoute: (setting) {
-        return MaterialPageRoute(builder: (context) => NoRoute());
-      },
     );
   }
 }
