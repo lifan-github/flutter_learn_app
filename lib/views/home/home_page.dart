@@ -1,7 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_learn_app/routes/application.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,8 +8,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  DateTime _lastPressedAt; //上次点击时间
-
   // 初始化值 父部件传递给子部件
   var item1 = const {'labelText': '网络请求', 'route': 'network_page'};
   var item2 = const {
@@ -40,45 +37,25 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: Text('首页'),
         ),
-        body: WillPopScope(
-          onWillPop: () async {
-            if (_lastPressedAt == null ||
-                DateTime.now().difference(_lastPressedAt) >
-                    Duration(seconds: 2)) {
-              //两次点击间隔超过1秒则重新计时
-              _lastPressedAt = DateTime.now();
-              Fluttertoast.showToast(
-                  msg: "再次点击退出APP",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIosWeb: 2,
-                  backgroundColor: Colors.black,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
-              return false;
-            }
-            return true;
-          },
-          child: Center(
-            child: Column(children: <Widget>[
-              Container(
-                child: Column(
-                  children: [
-                    _ListItem(item1),
-                    _ListItem(item2),
-                    _ListItem(item3),
-                    _ListItem(item4),
-                    _ListItem(item5),
-                    _ListItem(item6),
-                    _ListItem(item7),
-                    _ListItem(item8),
-                    _ListItem(item9),
-                    _ListItem(item10),
-                  ],
-                ),
-              )
-            ]),
-          ),
+        body: Center(
+          child: Column(children: <Widget>[
+            Container(
+              child: Column(
+                children: [
+                  _ListItem(item1),
+                  _ListItem(item2),
+                  _ListItem(item3),
+                  _ListItem(item4),
+                  _ListItem(item5),
+                  _ListItem(item6),
+                  _ListItem(item7),
+                  _ListItem(item8),
+                  _ListItem(item9),
+                  _ListItem(item10),
+                ],
+              ),
+            )
+          ]),
         ));
   }
 }
@@ -88,7 +65,8 @@ class _ListItem extends StatelessWidget {
   _ListItem(this.item);
 
   void onClick(context, labelText) {
-    Application.router.navigateTo(context, labelText['route'], transition: TransitionType.fadeIn);
+    Application.router.navigateTo(context, labelText['route'],
+        transition: TransitionType.fadeIn);
   }
 
   @override
