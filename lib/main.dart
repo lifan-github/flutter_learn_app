@@ -15,25 +15,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       onGenerateRoute: Application.router.generator,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Learn Flutter'),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(title: Text('首页'),icon: Icon(Icons.home)),
-            BottomNavigationBarItem(title: Text('书籍'),icon: Icon(Icons.book)),
-            BottomNavigationBarItem(title: Text('我的'),icon: Icon(Icons.perm_identity)),
-          ],
-          onTap: (index){
-            print('tab---$index');
-          },
-          fixedColor: Colors.red,
-        ),
-        body: Center(
-          child: Text('一枚有态度的程序员'),
-        ),
-      ),
     );
   }
 }

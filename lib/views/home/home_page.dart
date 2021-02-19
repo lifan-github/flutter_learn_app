@@ -1,4 +1,6 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_learn_app/routes/application.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class HomePage extends StatefulWidget {
@@ -86,7 +88,7 @@ class _ListItem extends StatelessWidget {
   _ListItem(this.item);
 
   void onClick(context, labelText) {
-    Navigator.pushNamed(context, labelText['route']);
+    Application.router.navigateTo(context, labelText['route'], transition: TransitionType.fadeIn);
   }
 
   @override

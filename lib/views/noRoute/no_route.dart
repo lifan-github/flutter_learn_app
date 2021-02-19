@@ -7,14 +7,8 @@ class NoRoute extends StatelessWidget {
       appBar: AppBar(
         title: Text('404'),
       ),
-      body: Container(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Text('404'),
-            ],
-          )
-        ),
+      body: Center(
+        child: Text('404'),
       ),
     );
   }
